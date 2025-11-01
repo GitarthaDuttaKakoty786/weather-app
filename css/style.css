@@ -1,0 +1,69 @@
+/* General Body Styles: Centers the app and sets the background */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* 4. Styling the Container (Applies box-shadow, padding, etc.) */
+.container {
+    background-color: #fff; /* [cite: 157] */
+    padding: 20px; /* [cite: 158] */
+    border-radius: 8px; /* [cite: 159] */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* [cite: 160] */
+    width: 300px; /* [cite: 161] */
+    text-align: center;
+}
+
+/* 5. Styling the Header */
+h1 {
+    font-size: 24px; /* [cite: 172] */
+    color: #333; /* [cite: 173] */
+    margin-bottom: 20px; /* [cite: 174] */
+}
+
+/* 6. Styling the Search Box elements */
+.search-area {
+    margin-bottom: 20px; /* Based on sample .search-box [cite: 182] */
+    display: flex;
+    justify-content: space-between;
+}
+
+#city-input {
+    padding: 10px; /* [cite: 185] */
+    flex-grow: 1; /* Takes up most space */
+    margin-right: 10px; /* [cite: 187] */
+    border: 1px solid #ccc; /* [cite: 189] */
+    border-radius: 4px; /* [cite: 190] */
+}
+
+#search-button {
+    padding: 10px; /* [cite: 192] */
+    cursor: pointer; /* [cite: 193] */
+    background-color: #007BFF; /* Corrected from sample [cite: 194] */
+    color: white; /* [cite: 195] */
+    border: none; /* [cite: 196] */
+    border-radius: 4px; /* [cite: 197] */
+}
+
+/* 7. Making the Layout Responsive */
+@media (max-width: 600px) { /* [cite: 202] */
+    .container {
+        width: 90%; /* Adjust container width on small screens */
+    }
+    .search-area {
+        flex-direction: column; /* Stack input and button */
+    }
+    #city-input {
+        width: 100%; /* [cite: 208] */
+        margin-right: 0;
+        margin-bottom: 10px; /* Add space between stacked elements */
+    }
+    #search-button {
+        width: 100%; /* [cite: 211] */
+    }
+}
