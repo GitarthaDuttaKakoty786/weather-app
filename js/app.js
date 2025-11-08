@@ -45,3 +45,59 @@ document.getElementById('search-button').addEventListener('click', function() {
         console.log("Please enter a city name.");
     }
 });
+
+
+
+
+// Function to update the DOM elements with fetched data
+function updateWeatherDisplay(data) {
+    // Round the temperature for display
+    const temp = Math.round(data.main.temp);
+    
+    // Capitalize the first letter of the description for presentation
+    const description = data.weather[0].description
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+        
+    // Update the HTML elements
+    document.getElementById('city-name').textContent = data.name;
+    document.getElementById('temperature').textContent = `${temp}°C`;
+    document.getElementById('weather-description').textContent = description;
+}
+
+// Modify the existing fetchWeatherData function to call the new update function
+async function fetchWeatherData(city) {
+    const apiKey = 'c1a9ef630b3b2c0a4412fab4d6748c3a'; // Ensure your key is here!
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    
+    try {
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status} for city: ${city}`);
+        }
+
+        const data = await response.json();
+        
+        // ********************************************
+        // Call the new function to display the data!
+        // ********************************************
+        updateWeatherDisplay(data); 
+
+        console.log('Weather data:', data); // Keep this for Lab 5 screenshot evidence
+        
+    } catch (error) {
+        console.error('Error fetching weather data:', error);
+    }
+}
+
+// (Keep your existing event listener below)
+document.getElementById('search-button').addEventListener('click', function() {
+    const city = document.getElementById('city-input').value;
+    if (city.trim() !== "") {
+        fetchWeatherData(city);
+    } else {
+        console.log("Please enter a city name.");
+    }
+});

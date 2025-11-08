@@ -69,3 +69,38 @@ h1 {
         width: 100%; /* [cite: 211] */
     }
 }
+
+/* Step 3: Styling Temperature Display */
+
+#temperature {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 10px;
+}
+/* Step 4: Styling Weather Description */
+
+#weather-description {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Step 5: Styling City Name */
+
+#city-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007BFF; /* A distinct blue color */
+    margin-bottom: 10px;
+}
+
+/* Step 6: Background and Border Styles for the Container */
+
+.weather-info {
+    /* Note: The color in the assignment sample (#2f8f9fa) appears to be a typo. 
+       Using a common functional light gray background color for visibility. */
+    background-color: #f8f9fa; 
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
