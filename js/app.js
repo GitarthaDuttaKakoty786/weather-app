@@ -1,5 +1,5 @@
 // Step 3: Write the Fetch Function
-async function fetchWeatherData(city) {
+/*async function fetchWeatherData(city) {
     // ⚠️ IMPORTANT: Replace 'YOUR_API_KEY' with your actual key from OpenWeatherMap
    
     const apiKey ='c1a9ef630b3b2c0a4412fab4d6748c3a';
@@ -30,10 +30,10 @@ async function fetchWeatherData(city) {
         console.error('Error fetching weather data:', error); 
     }
 }
-
+*/
 
 // Step 4: Modify the Existing Event Listener
-document.getElementById('search-button').addEventListener('click', function() {
+/*document.getElementById('search-button').addEventListener('click', function() {
     // Get the value from the city input field
     const city = document.getElementById('city-input').value; 
     
@@ -44,9 +44,54 @@ document.getElementById('search-button').addEventListener('click', function() {
     } else {
         console.log("Please enter a city name.");
     }
-});
+});*/
 
 
+
+/* Experiment 8: Simulating the 3-Day Weather Forecast */
+function generateWeatherForecast(city) {
+    // Define the list of possible weather conditions
+    const weatherConditions = ["Sunny", "Cloudy", "Rainy", "Snowy", "Partly Cloudy", "Thunderstorms", "Haze"];
+    
+    const forecast = []; 
+    const currentDate = new Date(); 
+
+    // Loop 3 times to generate data for Day 1, Day 2, and Day 3
+    for (let i = 0; i < 3; i++) {
+        
+        // Advance the date by one day in each loop
+        currentDate.setDate(currentDate.getDate() + 1);
+
+        // Calculate date parts
+        const day = currentDate.getDate();
+        const month = currentDate.getMonth() + 1; 
+        
+        // Generate random temperature between -10°C and 35°C, with one decimal place
+        const temperature = (Math.random() * 45 - 10).toFixed(1); 
+
+        // Randomly pick a condition from the array
+        const condition = weatherConditions[Math.floor(Math.random() * weatherConditions.length)];
+        
+        // Generate random humidity between 40% and 99%
+        const humidity = Math.floor(Math.random() * (99 - 40 + 1) + 40); 
+
+        // Get the short name of the day (e.g., "Mon", "Tue")
+        const dayName = currentDate.toLocaleDateString('en-US', { weekday: 'short' }); 
+
+        // Push the complete day's data object to the forecast array
+        forecast.push({
+            date: `${month}/${day}`,
+            dayName: dayName,
+            temperature: parseFloat(temperature),
+            condition: condition,
+            humidity: humidity,
+            city: city 
+        });
+    }
+
+    // Return the array of 3-day forecast objects
+    return forecast;
+}
 
 
 // Function to update the DOM elements with fetched data
@@ -97,6 +142,12 @@ document.getElementById('search-button').addEventListener('click', function() {
     const city = document.getElementById('city-input').value;
     if (city.trim() !== "") {
         fetchWeatherData(city);
+        
+        // START NEW CODE FOR LAB 8
+        const forecastData = generateWeatherForecast(city);
+        console.log('3-Day Forecast Data:', forecastData);
+        // END NEW CODE FOR LAB 8
+        
     } else {
         console.log("Please enter a city name.");
     }
