@@ -104,3 +104,36 @@ h1 {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
+
+/* Experiment 7: Forecast Section Styles */
+.forecast-cards {
+    display: flex; /* Makes the cards line up horizontally */
+    justify-content: space-between; /* Puts space between the cards */
+    gap: 10px; /* Space between each card */
+    margin-top: 20px;
+}
+/* Styling individual day cards */
+.day-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    flex: 1 1 0; /* Ensures all 3 cards are equal width */
+    text-align: center;
+}
+/* Styling text inside the card */
+.day-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #007BFF; /* Blue color */
+}
+
+.day-temp {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.day-description {
+    font-size: 14px;
+    color: #666;
+}
