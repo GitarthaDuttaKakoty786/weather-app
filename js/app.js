@@ -47,9 +47,21 @@
 });*/
 
 
+/* Experiment 9: Task 1 - Simulate Geolocation Data */
+function getUserLocation() {
+    // Simulated location data (e.g., for New York City)
+    return {
+        latitude: 40.7128,
+        longitude: -74.0060
+    };
+}
+
+
+
+
 
 /* Experiment 8: Simulating the 3-Day Weather Forecast */
-function generateWeatherForecast(city) {
+function generateWeatherForecast(city, latitude, longitude){
     // Define the list of possible weather conditions
     const weatherConditions = ["Sunny", "Cloudy", "Rainy", "Snowy", "Partly Cloudy", "Thunderstorms", "Haze"];
     
@@ -79,13 +91,16 @@ function generateWeatherForecast(city) {
         const dayName = currentDate.toLocaleDateString('en-US', { weekday: 'short' }); 
 
         // Push the complete day's data object to the forecast array
-        forecast.push({
+      forecast.push({
             date: `${month}/${day}`,
             dayName: dayName,
             temperature: parseFloat(temperature),
             condition: condition,
             humidity: humidity,
-            city: city 
+            city: city, 
+            // NEW LINES FOR LAB 9:
+            latitude: latitude,
+            longitude: longitude
         });
     }
 
@@ -143,10 +158,13 @@ document.getElementById('search-button').addEventListener('click', function() {
     if (city.trim() !== "") {
         fetchWeatherData(city);
         
-        // START NEW CODE FOR LAB 8
-        const forecastData = generateWeatherForecast(city);
+        // START NEW CODE FOR LAB 9
+        const location = getUserLocation(); // Call the new function
+        
+        // Pass the location data to generateWeatherForecast()
+        const forecastData = generateWeatherForecast(city, location.latitude, location.longitude);
         console.log('3-Day Forecast Data:', forecastData);
-        // END NEW CODE FOR LAB 8
+        // END NEW CODE FOR LAB 9
         
     } else {
         console.log("Please enter a city name.");
