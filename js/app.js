@@ -65,6 +65,29 @@ function getUserLocation() {
     };
 }
 
+/* Experiment 12: Task 3 - Implement and Display Weather Icons */
+function getWeatherIcon(condition) {
+    // Maps a weather condition string to a simple emoji icon
+    switch (condition) {
+        case "Sunny":
+            return "☀️"; // Sun emoji
+        case "Cloudy":
+            return "☁️"; // Cloud emoji
+        case "Rainy":
+            return "🌧️"; // Rain cloud emoji
+        case "Snowy":
+            return "❄️"; // Snowflake emoji
+        case "Partly Cloudy":
+            return "🌤️"; // Sun behind cloud emoji
+        case "Thunderstorms":
+            return "⛈️"; // Thunder cloud emoji
+        case "Haze":
+            return "🌫️"; // Fog/Haze emoji
+        default:
+            return "❓"; // Question mark for unknown
+    }
+}
+
 
 
 
@@ -104,16 +127,20 @@ function fetchWeatherData(city, latitude, longitude) {
         // Get the short name of the day (e.g., "Mon", "Tue")
         const dayName = currentDate.toLocaleDateString('en-US', { weekday: 'short' }); 
 
-        // Push the complete day's data object to the forecast array
-      forecast.push({
-            date: `${month}/${day}`,
-            dayName: dayName,
-            temperature: parseFloat(temperature),
-            condition: condition,
-            humidity: humidity, 
-            // NEW LINES FOR LAB 9:
-            latitude: latitude,
-            longitude: longitude
+       // Calculate icon based on the random condition
+       const icon = getWeatherIcon(condition); // <--- NEW LINE 1
+
+       // Push the complete day's data object to the forecast array
+        forecast.push({
+         date: `${month}/${day}`,
+        dayName: dayName,
+       temperature: parseFloat(temperature),
+       condition: condition,
+      humidity: humidity, 
+       // ADDED FOR LAB 12
+      icon: icon, // <--- NEW LINE 2
+       latitude: latitude,
+      longitude: longitude
         });
     }
 
@@ -183,8 +210,20 @@ document.getElementById('search-button').addEventListener('click', function() {
             // NOTE: fetchWeatherData now accepts 3 args
             const forecastData = fetchWeatherData(city, location.latitude, location.longitude); 
             
-            // 3. Log success
-            console.log('3-Day Forecast Data:', forecastData);
+            // 3. Log success with icons and detailed output (Task 4)
+        console.log('--- 3-Day Forecast for:', city, '---');
+        forecastData.forEach(dayForecast => {
+            console.log(`Date: ${dayForecast.date} (${dayForecast.dayName})`);
+            // Logs Condition and Icon
+            console.log(`Condition: ${dayForecast.condition} ${dayForecast.icon}`); 
+            console.log(`Temperature: ${dayForecast.temperature.toFixed(1)}°C`);
+            console.log(`Humidity: ${dayForecast.humidity.toFixed(1)}%`);
+            console.log(`Location: (${dayForecast.latitude}, ${dayForecast.longitude})`);
+            console.log('---------------------------');
+        });
+        
+        // You can keep the old simple log too, but the detailed one is better for the screenshot
+        // console.log('3-Day Forecast Data (Raw):', forecastData);
 
         } catch (error) {
             // 4. If any error occurs (location or city validation), log the message
