@@ -48,8 +48,17 @@
 
 
 /* Experiment 9: Task 1 - Simulate Geolocation Data */
+/* Experiment 11: Task 2 - Geolocation Error Simulation */
 function getUserLocation() {
-    // Simulated location data (e.g., for New York City)
+    
+    // NEW CODE FOR LAB 11: 20% chance of failure (random number is > 0.8)
+    const isLocationAvailable = Math.random() > 0.2; 
+    
+    if (!isLocationAvailable) {
+        throw new Error("Failed to detect location. Geolocation data is unavailable.");
+    }
+    
+    // If successful, return the fixed coordinates
     return {
         latitude: 40.7128,
         longitude: -74.0060
@@ -59,10 +68,14 @@ function getUserLocation() {
 
 
 
-
 /* Experiment 8: Simulating the 3-Day Weather Forecast */
 /* Experiment 10: Task 2 - Location-Based Simulation */
-function fetchWeatherData(latitude, longitude) {
+function fetchWeatherData(city, latitude, longitude) { 
+    
+    // NEW CODE FOR LAB 11: Validate the city input
+    if (typeof city !== 'string' || city.trim() === "") {
+        throw new Error("Invalid city name. Please provide a valid city.");
+    }
     // Define the list of possible weather conditions
     const weatherConditions = ["Sunny", "Cloudy", "Rainy", "Snowy", "Partly Cloudy", "Thunderstorms", "Haze"];
     
@@ -153,20 +166,34 @@ function updateWeatherDisplay(data) {
 }
 
 // (Keep your existing event listener below)
+// (Keep your existing event listener below)
 document.getElementById('search-button').addEventListener('click', function() {
     const city = document.getElementById('city-input').value;
+    
+    // The weather API call is separate from the forecast error handling
     if (city.trim() !== "") {
-       fetchCurrentWeatherAPI(city);
+       fetchCurrentWeatherAPI(city); 
         
-        // START NEW CODE FOR LAB 9
-        const location = getUserLocation(); // Call the new function
-        
-        // Pass the location data to generateWeatherForecast()
-      const forecastData = fetchWeatherData(location.latitude, location.longitude);
-        console.log('3-Day Forecast Data:', forecastData);
-        // END NEW CODE FOR LAB 9
+        // START NEW CODE FOR LAB 11: TRY...CATCH
+        try {
+            // 1. Get location (Might throw Geolocation Error)
+            const location = getUserLocation(); 
+            
+            // 2. Get forecast (Must pass city and might throw Invalid City Error)
+            // NOTE: fetchWeatherData now accepts 3 args
+            const forecastData = fetchWeatherData(city, location.latitude, location.longitude); 
+            
+            // 3. Log success
+            console.log('3-Day Forecast Data:', forecastData);
+
+        } catch (error) {
+            // 4. If any error occurs (location or city validation), log the message
+            console.error('Forecast Error:', error.message);
+        }
+        // END NEW CODE FOR LAB 11: TRY...CATCH
         
     } else {
+        // This handles the empty city input case
         console.log("Please enter a city name.");
     }
-});
+}); 
