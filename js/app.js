@@ -61,7 +61,8 @@ function getUserLocation() {
 
 
 /* Experiment 8: Simulating the 3-Day Weather Forecast */
-function generateWeatherForecast(city, latitude, longitude){
+/* Experiment 10: Task 2 - Location-Based Simulation */
+function fetchWeatherData(latitude, longitude) {
     // Define the list of possible weather conditions
     const weatherConditions = ["Sunny", "Cloudy", "Rainy", "Snowy", "Partly Cloudy", "Thunderstorms", "Haze"];
     
@@ -96,8 +97,7 @@ function generateWeatherForecast(city, latitude, longitude){
             dayName: dayName,
             temperature: parseFloat(temperature),
             condition: condition,
-            humidity: humidity,
-            city: city, 
+            humidity: humidity, 
             // NEW LINES FOR LAB 9:
             latitude: latitude,
             longitude: longitude
@@ -127,7 +127,7 @@ function updateWeatherDisplay(data) {
 }
 
 // Modify the existing fetchWeatherData function to call the new update function
-async function fetchWeatherData(city) {
+ async function fetchCurrentWeatherAPI(city) {
     const apiKey = 'c1a9ef630b3b2c0a4412fab4d6748c3a'; // Ensure your key is here!
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     
@@ -156,13 +156,13 @@ async function fetchWeatherData(city) {
 document.getElementById('search-button').addEventListener('click', function() {
     const city = document.getElementById('city-input').value;
     if (city.trim() !== "") {
-        fetchWeatherData(city);
+       fetchCurrentWeatherAPI(city);
         
         // START NEW CODE FOR LAB 9
         const location = getUserLocation(); // Call the new function
         
         // Pass the location data to generateWeatherForecast()
-        const forecastData = generateWeatherForecast(city, location.latitude, location.longitude);
+      const forecastData = fetchWeatherData(location.latitude, location.longitude);
         console.log('3-Day Forecast Data:', forecastData);
         // END NEW CODE FOR LAB 9
         
