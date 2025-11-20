@@ -137,3 +137,61 @@ h1 {
     font-size: 14px;
     color: #666;
 }
+
+
+
+/* --- Experiment 15: Task 4 - Basic Responsiveness --- */
+
+/* Mobile devices (max-width: 600px) [cite: 172, 173] */
+@media only screen and (max-width: 600px) {
+    body {
+        font-size: 14px;
+        padding: 10px; 
+    }
+    
+    .forecast-container { /* The container for the 3-day forecast */
+        display: block;  /* Stack items vertically */
+        text-align: center; 
+    }
+    
+    .day-forecast { /* Assuming your forecast items have this class */
+        margin-bottom: 20px; 
+        width: 100%; /* Take up full width on mobile */
+    }
+}
+
+/* Tablets (min-width: 601px and max-width: 900px) [cite: 186, 187] */
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+    body {
+        font-size: 16px; 
+        padding: 15px; 
+    }
+    
+    .forecast-container {
+        display: flex; 
+        flex-direction: column;  /* Still stack, but use flex properties */
+        align-items: center; 
+    }
+    
+    .day-forecast {
+        margin: 15px;
+        width: 80%; /* Don't take up full width */
+    }
+}
+
+/* Desktops (min-width: 901px) [cite: 202, 203] */
+@media only screen and (min-width: 901px) {
+    body {
+        font-size: 18px; 
+        padding: 20px; 
+    }
+    
+    .forecast-container {
+        display: flex;
+        justify-content: space-around;  /* Line items horizontally */
+    }
+    
+    .day-forecast {
+        margin: 20px; 
+    }
+}
